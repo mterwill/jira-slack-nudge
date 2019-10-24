@@ -59,10 +59,11 @@ func (c *Client) PostMessage(ctx context.Context, msg *Message) error {
 		return err
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.webhookURL, bytes.NewReader(encodedMsg))
+	req, err := http.NewRequest(http.MethodPost, c.webhookURL, bytes.NewReader(encodedMsg))
 	if err != nil {
 		return err
 	}
+	req.WithContext(ctx)
 	req.Header.Add("Content-Type", "application/json")
 
 	resp, err := http.DefaultClient.Do(req)

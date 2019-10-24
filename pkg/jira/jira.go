@@ -58,8 +58,7 @@ func (c *Client) FindIssues(ctx context.Context, jql string) (*SearchResponse, e
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	req, err := http.NewRequestWithContext(
-		ctx,
+	req, err := http.NewRequest(
 		http.MethodGet,
 		fmt.Sprintf("https://%s/rest/api/2/%s", c.server, "search"),
 		nil,
@@ -67,6 +66,8 @@ func (c *Client) FindIssues(ctx context.Context, jql string) (*SearchResponse, e
 	if err != nil {
 		return nil, err
 	}
+
+	req.WithContext(ctx)
 
 	query := url.Values{}
 	query.Set("jql", jql)
