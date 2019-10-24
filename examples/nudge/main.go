@@ -8,7 +8,7 @@ import (
 
 	"gopkg.in/yaml.v2"
 
-	"github.com/mterwill/jira-poker"
+	"github.com/mterwill/jira-slack-nudge"
 )
 
 func fromEnv(k string) string {
@@ -23,7 +23,7 @@ func fromEnv(k string) string {
 
 func main() {
 	if len(os.Args) < 2 {
-		log.Fatalf("Usage: poker <path-to-config.yaml>")
+		log.Fatalf("Usage: ./jira-slack-nudge <path-to-config.yaml>")
 	}
 
 	filename := os.Args[1]
@@ -33,10 +33,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	cfg := poker.Config{}
+	cfg := nudge.Config{}
 	err = yaml.Unmarshal(rawCfg, &cfg)
 
-	p := poker.New(
+	p := nudge.New(
 		fromEnv("JIRA_SERVER"),
 		fromEnv("JIRA_USERNAME"),
 		fromEnv("JIRA_PASSWORD"),
