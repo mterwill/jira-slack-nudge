@@ -103,5 +103,5 @@ func (c *Client) FindIssues(ctx context.Context, jql string) (*SearchResponse, e
 
 // LinkForIssue returns a link to the given issue
 func (c *Client) LinkForIssue(i *Issue) string {
-	return fmt.Sprintf("https://%s/issues/%s", c.server, i.Key)
+	return fmt.Sprintf("https://%s/browse/%s", c.server, i.Key)
 }
